@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: reports
+    tier: Service
+  name: reports
+  namespace: openvasp
+spec:
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: 5000
+  selector:
+    app: reports
+  sessionAffinity: None
+  type: ClusterIP

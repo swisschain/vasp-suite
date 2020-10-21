@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: sessions
+    tier: Service
+  name: sessions
+  namespace: openvasp
+spec:
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: 5000
+  selector:
+    app: sessions
+  sessionAffinity: None
+  type: ClusterIP

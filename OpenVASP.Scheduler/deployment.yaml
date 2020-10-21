@@ -1,0 +1,70 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    description: scheduler
+  labels:
+    app: scheduler
+    tier: Service
+    version: '0.5'
+  name: scheduler
+  namespace: openvasp
+spec:
+  revisionHistoryLimit: 1
+  minReadySeconds: 10
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  replicas: 1
+  selector:
+    matchLabels:
+      app: scheduler
+  template:
+    metadata:
+      labels:
+        app: scheduler
+        version: '0.5'
+      name: scheduler
+    spec:
+      imagePullSecrets:
+      - name: azure-registry
+      serviceAccountName: read-user
+      automountServiceAccountToken: false
+      containers:
+      - name: scheduler
+        image: openvaspclientdev.azurecr.io/swiss-chain:scheduler-1.3
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 5000
+        readinessProbe:
+          httpGet:
+            path: /health/ready
+            port: 5000
+          initialDelaySeconds: 60
+          periodSeconds: 10
+        livenessProbe:
+          httpGet:
+            path: /health/live
+            port: 5000
+          initialDelaySeconds: 60
+          periodSeconds: 20
+        resources:
+          requests:
+            memory: 128Mi
+            cpu: 40m
+          limits:
+            memory: 256Mi
+            cpu: 100m
+        env:
+        - name: BuildNumber
+          value: '0.5'
+        - name: SETTINGS_URL
+          value: 'http://consul-ui.internal.svc.cluster.local/v1/kv/scheduler/settings?raw'
+        - name: SERILOG_SETTINGS_URL
+          value: 'http://consul-ui.internal.svc.cluster.local/v1/kv/serilog/settings?raw'
+        - name: ENV_INFO
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name

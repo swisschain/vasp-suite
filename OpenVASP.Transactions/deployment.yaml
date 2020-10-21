@@ -1,0 +1,70 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    description: transactions
+  labels:
+    app: transactions
+    tier: Service
+    version: '0.3'
+  name: transactions
+  namespace: openvasp
+spec:
+  revisionHistoryLimit: 1
+  minReadySeconds: 10
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  replicas: 1
+  selector:
+    matchLabels:
+      app: transactions
+  template:
+    metadata:
+      labels:
+        app: transactions
+        version: '0.3'
+      name: transactions
+    spec:
+      imagePullSecrets:
+      - name: azure-registry
+      serviceAccountName: read-user
+      automountServiceAccountToken: false
+      containers:
+      - name: transactions
+        image: openvaspclientdev.azurecr.io/swiss-chain:transactions-1.3
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 5000
+        readinessProbe:
+          httpGet:
+            path: /health/ready
+            port: 5000
+          initialDelaySeconds: 60
+          periodSeconds: 10
+        livenessProbe:
+          httpGet:
+            path: /health/live
+            port: 5000
+          initialDelaySeconds: 60
+          periodSeconds: 20
+        resources:
+          requests:
+            memory: 128Mi
+            cpu: 40m
+          limits:
+            memory: 256Mi
+            cpu: 100m
+        env:
+        - name: BuildNumber
+          value: '0.3'
+        - name: SETTINGS_URL
+          value: 'http://consul-ui.internal.svc.cluster.local/v1/kv/transactions/settings?raw'
+        - name: SERILOG_SETTINGS_URL
+          value: 'http://consul-ui.internal.svc.cluster.local/v1/kv/serilog/settings?raw'
+        - name: ENV_INFO
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name

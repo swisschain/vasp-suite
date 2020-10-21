@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: scheduler
+    tier: Service
+  name: scheduler
+  namespace: openvasp
+spec:
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: 5000
+  selector:
+    app: scheduler
+  sessionAffinity: None
+  type: ClusterIP
