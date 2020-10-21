@@ -5,7 +5,7 @@ metadata:
     app: scheduler
     tier: Service
   name: scheduler
-  namespace: openvasp
+  namespace: services
 spec:
   ports:
   - name: http

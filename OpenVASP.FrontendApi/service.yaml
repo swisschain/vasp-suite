@@ -5,7 +5,7 @@ metadata:
     app: frontend-api
     tier: Service
   name: frontend-api
-  namespace: openvasp
+  namespace: services
 spec:
   ports:
   - name: http

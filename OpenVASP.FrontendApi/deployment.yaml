@@ -8,7 +8,7 @@ metadata:
     tier: Service
     version: '0.1'
   name: frontend-api
-  namespace: openvasp
+  namespace: services
 spec:
   revisionHistoryLimit: 1
   minReadySeconds: 10

@@ -5,7 +5,7 @@ metadata:
     app: csharp-ui
     tier: Service
   name: csharp-ui
-  namespace: openvasp
+  namespace: services
 spec:
   ports:
   - name: http

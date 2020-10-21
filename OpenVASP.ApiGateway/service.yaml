@@ -5,7 +5,7 @@ metadata:
     app: api-gateway
     tier: Service
   name: api-gateway
-  namespace: openvasp
+  namespace: services
 spec:
   ports:
   - name: http

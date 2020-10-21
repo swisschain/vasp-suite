@@ -8,7 +8,7 @@ metadata:
     tier: Service
     version: '0.2'
   name: csharp-ui
-  namespace: openvasp
+  namespace: services
 spec:
   minReadySeconds: 10
   progressDeadlineSeconds: 600

@@ -8,7 +8,7 @@ metadata:
     tier: Service
     version: '0.3'
   name: reports
-  namespace: openvasp
+  namespace: services
 spec:
   revisionHistoryLimit: 5
   minReadySeconds: 10

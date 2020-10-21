@@ -5,7 +5,7 @@ metadata:
     app: reports
     tier: Service
   name: reports
-  namespace: openvasp
+  namespace: services
 spec:
   ports:
   - name: http

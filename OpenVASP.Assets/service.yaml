@@ -5,7 +5,7 @@ metadata:
     app: assets
     tier: Service
   name: assets
-  namespace: openvasp
+  namespace: services
 spec:
   ports:
   - name: http
