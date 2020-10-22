@@ -6,6 +6,8 @@ metadata:
     tier: Service
   name: api-gateway
   namespace: services
+  annotations:
+    service.beta.kubernetes.io/azure-load-balancer-internal: "true"
 spec:
   ports:
   - name: http
