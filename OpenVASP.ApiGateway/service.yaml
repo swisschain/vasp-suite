@@ -6,8 +6,6 @@ metadata:
     tier: Service
   name: api-gateway
   namespace: services
-  annotations:
-    service.beta.kubernetes.io/azure-load-balancer-internal: "true"
 spec:
   ports:
   - name: http
@@ -17,4 +15,6 @@ spec:
   selector:
     app: api-gateway
   sessionAffinity: None
-  type: ClusterIP
+  type: LoadBalancer
+  loadBalancerSourceRanges:
+  - 51.105.173.11/32
