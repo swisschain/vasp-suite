@@ -34,7 +34,7 @@ spec:
       automountServiceAccountToken: false
       containers:
       - name: users
-        image: openvaspclientdev.azurecr.io/swiss-chain:users-1.2
+        image: openvaspclientdev.azurecr.io/swiss-chain:users-1.4
         imagePullPolicy: Always
         ports:
         - containerPort: 5000

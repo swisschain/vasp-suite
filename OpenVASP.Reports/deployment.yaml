@@ -34,7 +34,7 @@ spec:
       automountServiceAccountToken: false
       containers:
       - name: reports
-        image: openvaspclientdev.azurecr.io/swiss-chain:reports-1.5
+        image: openvaspclientdev.azurecr.io/swiss-chain:reports-1.19
         imagePullPolicy: Always
         ports:
         - containerPort: 5000

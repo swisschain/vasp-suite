@@ -34,7 +34,7 @@ spec:
       automountServiceAccountToken: false
       containers:
       - name: sessions
-        image: openvaspclientdev.azurecr.io/swiss-chain:sessions-1.6
+        image: openvaspclientdev.azurecr.io/swiss-chain:sessions-1.51
         imagePullPolicy: Always
         ports:
         - containerPort: 5000
