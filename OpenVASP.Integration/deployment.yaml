@@ -1,0 +1,70 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    description: integration
+  labels:
+    app: integration
+    tier: Service
+    version: '1.13'
+  name: integration
+  namespace: services
+spec:
+  revisionHistoryLimit: 1
+  minReadySeconds: 10
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  replicas: 1
+  selector:
+    matchLabels:
+      app: integration
+  template:
+    metadata:
+      labels:
+        app: integration
+        version: '1.13'
+      name: integration
+    spec:
+      imagePullSecrets:
+      - name: azure-registry
+      serviceAccountName: read-user
+      automountServiceAccountToken: false
+      containers:
+      - name: integration
+        image: openvaspclientdev.azurecr.io/swiss-chain:integration-1.13
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 5000
+        readinessProbe:
+          httpGet:
+            path: /health/ready
+            port: 5000
+          initialDelaySeconds: 60
+          periodSeconds: 10
+        livenessProbe:
+          httpGet:
+            path: /health/live
+            port: 5000
+          initialDelaySeconds: 60
+          periodSeconds: 20
+        resources:
+          requests:
+            memory: 128Mi
+            cpu: 40m
+          limits:
+            memory: 256Mi
+            cpu: 100m
+        env:
+        - name: BuildNumber
+          value: '1.13'
+        - name: SETTINGS_URL
+          value: 'http://consul-ui.internal.svc.cluster.local/v1/kv/integration/settings?raw'
+        - name: SERILOG_SETTINGS_URL
+          value: 'http://consul-ui.internal.svc.cluster.local/v1/kv/serilog/settings?raw'
+        - name: ENV_INFO
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
