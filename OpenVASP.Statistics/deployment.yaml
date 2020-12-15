@@ -68,3 +68,5 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.name
+      nodeSelector:
+        type: services
