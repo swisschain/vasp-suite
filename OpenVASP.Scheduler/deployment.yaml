@@ -34,7 +34,7 @@ spec:
       automountServiceAccountToken: false
       containers:
       - name: scheduler
-        image: openvaspclientdev.azurecr.io/swiss-chain:scheduler-1.19
+        image: openvaspclientdev.azurecr.io/swiss-chain:scheduler-1.21
         imagePullPolicy: Always
         ports:
         - containerPort: 5000

@@ -34,7 +34,7 @@ spec:
       automountServiceAccountToken: false
       containers:
       - name: api-gateway
-        image: openvaspclientdev.azurecr.io/swiss-chain:api-gateway-1.19
+        image: openvaspclientdev.azurecr.io/swiss-chain:api-gateway-1.35
         imagePullPolicy: Always
         ports:
         - containerPort: 5000

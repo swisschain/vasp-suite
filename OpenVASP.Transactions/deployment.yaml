@@ -34,7 +34,7 @@ spec:
       automountServiceAccountToken: false
       containers:
       - name: transactions
-        image: openvaspclientdev.azurecr.io/swiss-chain:transactions-1.28
+        image: openvaspclientdev.azurecr.io/swiss-chain:transactions-1.38
         imagePullPolicy: Always
         ports:
         - containerPort: 5000

@@ -34,7 +34,7 @@ spec:
       automountServiceAccountToken: false
       containers:
       - name: whisper
-        image: openvaspclientdev.azurecr.io/swiss-chain:whisper-1.37
+        image: openvaspclientdev.azurecr.io/swiss-chain:whisper-1.45
         imagePullPolicy: Always
         ports:
         - containerPort: 5000
